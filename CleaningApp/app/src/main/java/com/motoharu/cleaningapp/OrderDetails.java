@@ -13,18 +13,25 @@ import org.w3c.dom.Text;
 
 import java.sql.SQLException;
 
+import Database.DBHelper;
+import ObjectModel.Order;
 import ObjectModel.User;
 
 
 public class OrderDetails extends Activity {
     private TextView accBdTV, accStreetTV, accApTV, retBdTV, retStrTV, retApTV;
     private User user;
+    private Order order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_details);
         user = User.getInstance();
+        order = new Order();
+        Intent intent = getIntent();
+        int id = intent.getIntExtra(DBHelper.MAIN_ID, 0);
+        order.initializeCurrentOrder(id, OrderDetails.this);
         accBdTV = (TextView) findViewById(R.id.accBdStatsD);
         accStreetTV = (TextView) findViewById(R.id.accStrStatsD);
         accApTV = (TextView) findViewById(R.id.accApStatsD);
@@ -53,12 +60,11 @@ public class OrderDetails extends Activity {
         return super.onOptionsItemSelected(item);
     }
     public void fillData(){
-        //TODO currently, all order data is being updated, need to make another table with orders, that keeps info about current order
-        accStreetTV.setText(user.getaccStr());
-        accBdTV.setText(user.getaccBd());
-        accApTV.setText(user.getaccAp());
-        retBdTV.setText(user.getretBd());
-        retStrTV.setText(user.getretStr());
-        retApTV.setText(user.getretAp());
+        accStreetTV.setText(order.getAccStr());
+        accBdTV.setText(order.getAccBd());
+        accApTV.setText(order.getAccAp());
+        retBdTV.setText(order.getRetBd());
+        retStrTV.setText(order.getRetStr());
+        retApTV.setText(order.getRetAp());
     }
 }

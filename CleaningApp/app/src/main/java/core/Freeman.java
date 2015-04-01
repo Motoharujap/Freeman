@@ -32,7 +32,6 @@ public class Freeman extends Application {
         mDbHelper = new DBHelper(this);
         user = User.getInstance();
         if (mDbHelper.areUsersExist()){
-            //TODO fill the User object with data
             int userID = (int) mDbHelper.getCurrentUserID();
             user.instantiateUser(userID);
         }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import Database.DBHelper;
 import Database.DBOperationCreator;
+import core.Freeman;
 
 /**
  * Created by sergey on 26.03.15.
@@ -30,6 +31,7 @@ public class User {
     private Context _c;
     private static User instance;
     private Cursor _cursor;
+    private Freeman app;
 
     private User(){
     }
@@ -64,6 +66,10 @@ public class User {
     }
 
     public void instantiateUser(int userId){
+        //acquiring apps context for DBHelper
+        app = Freeman.getInstance();
+        _c = app.getApplicationContext();
+
         DBOperationCreator dc = new DBOperationCreator();
         userInfo = dc.getUserInfo(userId, _c);
         _email = userInfo.get(0);

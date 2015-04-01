@@ -140,7 +140,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         String query = "select * from " + TABLE_USER;
         Cursor cursor = db.rawQuery(query, null);
-        return cursor != null;
+        return cursor.moveToFirst();
     }
 
     //current order CRUD
@@ -162,7 +162,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor getCurrentOrderInfo(int id){
         SQLiteDatabase db = getWritableDatabase();
         Cursor c = db.query(true, TABLE_CURRENT_ORDER, new String[]{KEY_CORDER_ID, CO_PHONE_NUMBER, CO_ACCEPT_ADDRESS_STREET,
-                CO_ACCEPT_ADDRESS_BD, CO_ACCEPT_ADDRESS_AP, CO_RETURN_ADDRESS_STREET, CO_RETURN_ADDRESS_BD, CO_RETURN_ADDRESS_AP}, KEY_CORDER_ID + " = " + id, null, null, null, null, null);
+                CO_ACCEPT_ADDRESS_BD, CO_ACCEPT_ADDRESS_AP, CO_RETURN_ADDRESS_STREET, CO_RETURN_ADDRESS_BD, CO_RETURN_ADDRESS_AP},
+                KEY_CORDER_ID + " = " + id, null, null, null, null, null);
         if (c != null){
             c.moveToFirst();
         }
@@ -280,7 +281,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getUser(long rowId) throws SQLException {
-        SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         Cursor mCursor = db.query(true, TABLE_USER, new String[]{MAIN_ID, PHONE_NUMBER, EMAIL, PASSWORD, USER_NAME, USER_SECOND_NAME, USER_SURNAME, ACCEPT_ADDRESS_STREET,
                         ACCEPT_ADDRESS_BD, ACCEPT_ADDRESS_AP, RETURN_ADDRESS_STREET, RETURN_ADDRESS_BD, RETURN_ADDRESS_AP}, MAIN_ID + " = " + rowId,
                 null, null, null, null, null);

@@ -32,14 +32,13 @@ public class DBOperationCreator {
         DBHelper mDbhelper = new DBHelper(context);
         Cursor c = null;
         try {
-            if (c.moveToFirst()) {
-                c = mDbhelper.getUser(userID);
-            }
+            c = mDbhelper.getUser(userID);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        if (c != null){
+
+        if (c.moveToFirst()){
             userInfo.add(c.getString(c.getColumnIndex(DBHelper.EMAIL)));
             userInfo.add(c.getString(c.getColumnIndex(DBHelper.PASSWORD)));
             userInfo.add(c.getString(c.getColumnIndex(DBHelper.PHONE_NUMBER)));
@@ -59,12 +58,17 @@ public class DBOperationCreator {
     public HashMap<String, String> getCurrentOrderInfo(int id, Context context){
         HashMap<String, String> map = new HashMap<String, String>();
         DBHelper mDbHelper = new DBHelper(context);
-        Cursor c = null;
-        c = mDbHelper.getCurrentOrderInfo(id);
+        Cursor c = mDbHelper.getCurrentOrderInfo(id);
+
         if (c.moveToFirst()){
-            map.put(KEY_ID, String.valueOf(c.getInt(c.getColumnIndex(DBHelper.KEY_CORDER_ID))));
+            //map.put(KEY_ID, String.valueOf(c.getInt(c.getColumnIndex(DBHelper.KEY_CORDER_ID))));
             map.put(PHONE_NUMBER, c.getString(c.getColumnIndex(DBHelper.CO_PHONE_NUMBER)));
             map.put(ACCEPT_ADDRESS_STREET, c.getString(c.getColumnIndex(DBHelper.CO_ACCEPT_ADDRESS_STREET)));
+            map.put(ACCEPT_ADDRESS_BD, c.getString(c.getColumnIndex(DBHelper.CO_ACCEPT_ADDRESS_BD)));
+            map.put(ACCEPT_ADDRESS_AP, c.getString(c.getColumnIndex(DBHelper.CO_ACCEPT_ADDRESS_AP)));
+            map.put(RETURN_ADDRESS_STREET, c.getString(c.getColumnIndex(DBHelper.CO_RETURN_ADDRESS_STREET)));
+            map.put(RETURN_ADDRESS_BD, c.getString(c.getColumnIndex(DBHelper.CO_RETURN_ADDRESS_BD)));
+            map.put(RETURN_ADDRESS_AP, c.getString(c.getColumnIndex(DBHelper.CO_RETURN_ADDRESS_AP)));
         }
 
         return map;
