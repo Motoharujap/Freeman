@@ -1,0 +1,212 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.motoharu.cleaningapp.OrderFragment"
+    android:orientation="vertical"
+    android:id="@+id/relLAy">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="false"
+            android:id="@+id/linearLayout2"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Количество рубашек"
+                android:id="@+id/textView2"
+                android:layout_above="@+id/linearLayout"
+                android:layout_centerHorizontal="true"
+                android:textSize="30dp"
+                android:layout_gravity="center"
+                android:textColor="#33b5e5"
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/linearLayout"
+                android:layout_gravity="center">
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:text="-"
+                    android:id="@+id/minusButton"
+                    android:textSize="40dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/round_button"
+                    android:textColor="#33b5e5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="0"
+                    android:id="@+id/shirtsQ"
+                    android:singleLine="false"
+                    android:textSize="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
+                    android:freezesText="true"
+                    android:textColor="#33b5e5" />
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:text="+"
+                    android:id="@+id/plusButton"
+                    android:textSize="40dp"
+                    android:background="@drawable/round_button"
+                    android:textColor="#33b5e5" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Отправить заказ"
+                    android:id="@+id/sendOrder"
+                    android:layout_marginTop="10dp"
+                    android:textSize="26dp"
+                    android:background="@drawable/round_corner_button"
+                    android:padding="6dp"
+                    android:textColor="#ffffffff" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Сумма заказа:"
+                    android:id="@+id/textView"
+                    android:textSize="25dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#33b5e5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:id="@+id/summTV"
+                    android:textSize="25dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:freezesText="true"
+                    android:textColor="#33b5e5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Статус заказа"
+                    android:id="@+id/statusShow"
+                    android:background="@drawable/round_corner_button"
+                    android:padding="5dp"
+                    android:textColor="#ffffffff"
+                    android:textSize="26dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"
+                android:id="@+id/statusLayout"
+                android:focusable="false">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp">
+
+                    <Button
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:id="@+id/status_one"
+                        android:textSize="40dp"
+                        android:layout_gravity="center"
+                        android:textColor="#33b5e5"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/round_button"
+                        android:text="t" />
+
+                    <Button
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:id="@+id/status_two"
+                        android:textSize="40dp"
+                        android:layout_gravity="center"
+                        android:textColor="#33b5e5"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/round_button" />
+
+                    <Button
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:id="@+id/status_three"
+                        android:textSize="40dp"
+                        android:layout_gravity="center"
+                        android:textColor="#33b5e5"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/round_button" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Ваш заказ обрабатывается"
+                    android:id="@+id/textView4"
+                    android:gravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#33b5e5" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

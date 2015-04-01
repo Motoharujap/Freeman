@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CleaningApp</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_registration">Registration</string>
+    <string name="title_activity_main_screen">MainScreen</string>
+    <string name="title_activity_tabs_pager_adapter">TabsPagerAdapter</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_confirm_order">Confirm_order</string>
+    <string name="title_activity_edit_profile">EditProfile</string>
+    <string name="title_activity_order_details">OrderDetails</string>
+    <string name="settings">Настройки</string>
+    <string name="edit_profile">Ред. профиль</string>
+    <string name="logout">Выйти из аккаунта</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="exit">Выход</string>
+    <string name="exitConfirmation">Вы действительно хотите выйти?</string>
+    <string name="cannotBeEmpty">У вас есть незаполненные поля!</string>
+    <string name="title_activity_core">CoreActivity</string>
+
+
+</resources>
