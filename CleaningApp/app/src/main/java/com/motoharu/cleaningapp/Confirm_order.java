@@ -223,8 +223,8 @@ public class Confirm_order extends ActionBarActivity implements LoaderManager.Lo
         DBHelper dbHelper = new DBHelper(this);
         Date date = new Date();
         SimpleDateFormat dt = new SimpleDateFormat("yyyy/MM/dd");
-        _order = new Order(user.getuserId(), shirtsQ, String.valueOf(summ), dt.format(date), "Заказ не создан", phoneInp, accStrInp, accBdInp, accApInp, retStrInp,
-                retBdInp, retApInp, Confirm_order.this);
-        _order.saveToDB();
+        _order = new Order(user.getuserId(), shirtsQ, String.valueOf(summ), dt.format(date), "Заказ не обработан", phoneInp, accStrInp, accBdInp, accApInp, retStrInp,
+                retBdInp, retApInp);
+        _order.saveToDB(Confirm_order.this);
     }
 }

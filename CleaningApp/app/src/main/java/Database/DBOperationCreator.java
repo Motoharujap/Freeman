@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import core.Freeman;
+import data.FeedItem;
+import data.OrderStatusItem;
 
 /**
  * Created by sergey on 31.03.15.
@@ -26,6 +28,23 @@ public class DBOperationCreator {
     public final String RETURN_ADDRESS_STREET = "returnStreet";
     public final String RETURN_ADDRESS_BD = "returnBld";
     public final String RETURN_ADDRESS_AP = "returnAp";
+
+
+
+    public final int K_KEY_ID = 101;
+    public final int K_EMAIL = 102;
+    public final int K_PASSWORD = 103;
+    public final int K_PHONE_NUMBER = 104;
+    public final int K_ACCEPT_ADDRESS_STREET = 108;
+    public final int K_ACCEPT_ADDRESS_BD = 109;
+    public final int K_ACCEPT_ADDRESS_AP = 110;
+    public final int K_RETURN_ADDRESS_STREET = 111;
+    public final int K_RETURN_ADDRESS_BD = 112;
+    public final int K_RETURN_ADDRESS_AP = 113;
+    public final int K_SHIRTS_Q = 114;
+    public final int K_SUMM = 115;
+    public final int K_STATUS = 116;
+    public final int K_DATE_STAMP = 117;
 
     public ArrayList<String> getUserInfo(int userID, Context context){
         ArrayList<String> userInfo = new ArrayList<String>();
@@ -73,4 +92,65 @@ public class DBOperationCreator {
 
         return map;
     }
+
+    public ArrayList<OrderStatusItem> getItems(long userId, Context context){
+        DBHelper mDbhelper = new DBHelper(context);
+        Cursor c = mDbhelper.getAllOrders(userId);
+        ArrayList<OrderStatusItem> orderStatusItems = new ArrayList<OrderStatusItem>();
+        while (c.moveToNext()) {
+             OrderStatusItem si = new OrderStatusItem();
+             si.setShirtsQ(c.getString(c.getColumnIndexOrThrow(DBHelper.SHIRTS_Q)));
+             si.setSumm(c.getString(c.getColumnIndexOrThrow(DBHelper.SUMM)));
+             si.setStatus(c.getString(c.getColumnIndexOrThrow(DBHelper.STATUS)));
+             si.setTimeStamp(c.getString(c.getColumnIndexOrThrow(DBHelper.DATE_STAMP)));
+             si.setId((int) c.getLong(c.getColumnIndex(DBHelper.KEY_CORDER_ID)));
+             orderStatusItems.add(si);
+        }
+        return orderStatusItems;
+    }
+
+    public String getCurrentOrderInfo(int infoID, int orderid, Context context){
+        DBHelper dbhelper = new DBHelper(context);
+        Cursor cursor = dbhelper.getCurrentOrderInfo(orderid);
+        if (cursor.moveToFirst()) {
+            switch (infoID) {
+                case K_PHONE_NUMBER: {
+                    return cursor.getString(cursor.getColumnIndex(DBHelper.CO_PHONE_NUMBER));
+                }
+                case K_ACCEPT_ADDRESS_STREET: {
+                    return cursor.getString(cursor.getColumnIndex(DBHelper.CO_ACCEPT_ADDRESS_STREET));
+                }
+                case K_ACCEPT_ADDRESS_BD: {
+                    return cursor.getString(cursor.getColumnIndex(DBHelper.CO_ACCEPT_ADDRESS_BD));
+                }
+                case K_ACCEPT_ADDRESS_AP:{
+                    return cursor.getString(cursor.getColumnIndex(DBHelper.CO_ACCEPT_ADDRESS_AP));
+                }
+                case K_RETURN_ADDRESS_STREET:{
+                    return cursor.getString(cursor.getColumnIndex(DBHelper.CO_RETURN_ADDRESS_STREET));
+                }
+                case K_RETURN_ADDRESS_BD:{
+                    return cursor.getString(cursor.getColumnIndex(DBHelper.CO_RETURN_ADDRESS_BD));
+                }
+                case K_RETURN_ADDRESS_AP:{
+                    return cursor.getString(cursor.getColumnIndex(DBHelper.CO_RETURN_ADDRESS_AP));
+                }
+                case K_STATUS:{
+                    return cursor.getString(cursor.getColumnIndex(DBHelper.STATUS));
+                }
+                case K_SHIRTS_Q:{
+                    return cursor.getString(cursor.getColumnIndex(DBHelper.SHIRTS_Q));
+                }
+                case K_DATE_STAMP:{
+                    return cursor.getString(cursor.getColumnIndex(DBHelper.DATE_STAMP));
+                }
+                case K_SUMM:{
+                    return cursor.getString(cursor.getColumnIndex(DBHelper.SUMM));
+                }
+            }
+        }
+        return null;
+    }
+
+
 }

@@ -39,21 +39,18 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String RETURN_ADDRESS_BD = "returnBld";
     public static final String RETURN_ADDRESS_AP = "returnAp";
 
-    //order table info
-    public static final String TABLE_ORDER = "tableOrder";
-    public static final String SHIRTS_Q = "shirtsq";
-    public static final String SUMM = "summ";
-    public static final String STATUS = "status";
-    public static final String DATE_STAMP = "date";
-    public static final String USER_UNIQUE_ID = "userIdUnique";
-
     //current user info table
     public static final String TABLE_CURRENT_USER = "current_user";
     public static final String CURRENT_USER_ID = "userID";
 
     //current oreder info table
     public static final String TABLE_CURRENT_ORDER = "current_order";
-    public static final String KEY_CORDER_ID = "c_order_id";
+    public static final String KEY_CORDER_ID = "order_id";
+    public static final String SHIRTS_Q = "shirtsq";
+    public static final String SUMM = "summ";
+    public static final String STATUS = "status";
+    public static final String DATE_STAMP = "date";
+    public static final String USER_UNIQUE_ID = "userIdUnique";
     public static final String CO_PHONE_NUMBER = "co_phonenumber";
     public static final String CO_ACCEPT_ADDRESS_STREET = "co_acceptStreet";
     public static final String CO_ACCEPT_ADDRESS_BD = "co_acceptBld";
@@ -79,30 +76,18 @@ public class DBHelper extends SQLiteOpenHelper {
             + RETURN_ADDRESS_BD + " text, "
             + RETURN_ADDRESS_AP + " text);";
 
-    //TODO find out wtf does "primary key" means and, if possible, replace it with normal key without autoincrement
-    public static final String CREATE_ORDER_TABLE = "create table "
-            + TABLE_ORDER + "("
-            + MAIN_ID + " integer primary key autoincrement, "
-            + SHIRTS_Q + " integer, "
-            + SUMM + " text, "
-            + STATUS + " text, "
-            + DATE_STAMP + " text, "
-            + USER_UNIQUE_ID + " integer, "
-            + PHONE_NUMBER + " text, "
-            + ACCEPT_ADDRESS_STREET + " text, "
-            + ACCEPT_ADDRESS_BD + " text, "
-            + ACCEPT_ADDRESS_AP + " text, "
-            + RETURN_ADDRESS_STREET + " text, "
-            + RETURN_ADDRESS_BD + " text, "
-            + RETURN_ADDRESS_AP + " text);";
-
     public static final String CREATE_TABLE_CURRENT_USER = "create table "
             + TABLE_CURRENT_USER + "("
             + CURRENT_USER_ID + " integer);";
 
     public static final String CREATE_TABLE_CURRENT_ORDER = "create table "
             + TABLE_CURRENT_ORDER + "("
-            + KEY_CORDER_ID + " integer, "
+            + KEY_CORDER_ID + " integer primary key autoincrement, "
+            + SHIRTS_Q + " integer, "
+            + SUMM + " text, "
+            + STATUS + " text, "
+            + DATE_STAMP + " text, "
+            + USER_UNIQUE_ID + " integer, "
             + CO_PHONE_NUMBER + " text, "
             + CO_ACCEPT_ADDRESS_STREET + " text, "
             + CO_ACCEPT_ADDRESS_BD + " text, "
@@ -118,7 +103,6 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
             db.execSQL(CREATE_TABLE_USER);
-            db.execSQL(CREATE_ORDER_TABLE);
             db.execSQL(CREATE_TABLE_CURRENT_USER);
             db.execSQL(CREATE_TABLE_CURRENT_ORDER);
     }
@@ -126,7 +110,6 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDER);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_CURRENT_USER);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_CURRENT_ORDER);
             onCreate(db);
@@ -144,11 +127,15 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //current order CRUD
-    public void writeCurrentOrder(int Id, String phoneNumber, String accStr, String accBd, String accAp,
+    public void writeCurrentOrder(long userId, int shirtsq, String summ, String dateStamp, String status, String phoneNumber, String accStr, String accBd, String accAp,
                                   String retStr, String retBd, String retAp){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(KEY_CORDER_ID, Id);
+        cv.put(USER_UNIQUE_ID, userId);
+        cv.put(SHIRTS_Q, shirtsq);
+        cv.put(SUMM, summ);
+        cv.put(DATE_STAMP, dateStamp);
+        cv.put(STATUS, status);
         cv.put(CO_PHONE_NUMBER, phoneNumber);
         cv.put(CO_ACCEPT_ADDRESS_STREET, accStr);
         cv.put(CO_ACCEPT_ADDRESS_BD, accBd);
@@ -161,7 +148,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getCurrentOrderInfo(int id){
         SQLiteDatabase db = getWritableDatabase();
-        Cursor c = db.query(true, TABLE_CURRENT_ORDER, new String[]{KEY_CORDER_ID, CO_PHONE_NUMBER, CO_ACCEPT_ADDRESS_STREET,
+        Cursor c = db.query(true, TABLE_CURRENT_ORDER, new String[]{KEY_CORDER_ID, USER_UNIQUE_ID, SHIRTS_Q, SUMM, DATE_STAMP, STATUS, CO_PHONE_NUMBER, CO_ACCEPT_ADDRESS_STREET,
                 CO_ACCEPT_ADDRESS_BD, CO_ACCEPT_ADDRESS_AP, CO_RETURN_ADDRESS_STREET, CO_RETURN_ADDRESS_BD, CO_RETURN_ADDRESS_AP},
                 KEY_CORDER_ID + " = " + id, null, null, null, null, null);
         if (c != null){
@@ -169,43 +156,20 @@ public class DBHelper extends SQLiteOpenHelper {
         }
          return c;
     }
-    public long createOrder(long userId, int shirtsq, String summ, String dateStamp, String status){
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        //TODO
-        cv.put(USER_UNIQUE_ID, userId);
-        cv.put(SHIRTS_Q, shirtsq);
-        cv.put(SUMM, summ);
-        cv.put(DATE_STAMP, dateStamp);
-        cv.put(STATUS, status);
-        long rowID = db.insert(TABLE_ORDER, null, cv);
-        return rowID;
-    }
 
-    public Cursor getOrderInfo(long rowID){
-        //String selectQuery = "SELECT * FROM " + TABLE_ORDER;
+    public Cursor getAllOrders(long id){
         SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.query(true, TABLE_ORDER, new String[]{MAIN_ID, USER_UNIQUE_ID, SHIRTS_Q, SUMM, DATE_STAMP, STATUS}, MAIN_ID + " = " + rowID, null, null, null, null, null);
-        if (cursor!=null){
-            cursor.moveToFirst();
+        Cursor c = db.rawQuery("select * from " + TABLE_CURRENT_ORDER + " where " + USER_UNIQUE_ID + " = " + id, null);
+        if (c != null){
+            c.moveToFirst();
         }
-        return cursor;
-    }
-
-    public Cursor getAllOrders(){
-        String query = "SELECT * FROM " + TABLE_ORDER;
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor mCursor = db.rawQuery(query, null);
-        if (mCursor!=null){
-            mCursor.moveToFirst();
-        }
-        return mCursor;
+         return c;
     }
 
     //Delete order
     public void deleteOrdersById(ArrayList<Integer> idList){
         SQLiteDatabase database = getWritableDatabase();
-        String deleteQuery = "DELETE FROM " + TABLE_ORDER + " WHERE " + MAIN_ID + " = ? ";
+        String deleteQuery = "DELETE FROM " + TABLE_CURRENT_ORDER + " WHERE " + KEY_CORDER_ID + " = ? ";
         for (int i = 0; i < idList.size(); i++){
             database.execSQL(deleteQuery, new Object[]{idList.get(i)});
         }

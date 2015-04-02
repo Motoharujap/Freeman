@@ -1,6 +1,8 @@
 package com.motoharu.cleaningapp;
 
 import Database.DBHelper;
+import Database.DBOperationCreator;
+import ObjectModel.User;
 import adapter.OrderStatusAdapter;
 import core.Freeman;
 import data.*;
@@ -48,7 +50,9 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
     public List<OrderStatusItem> feedItems;
     private String xmlUrl = "http://syarkov.wix.com/stevia/feed.xml";
     private PullToRefreshLayout mPullToRefreshLayout;
-    DBHelper mDBhelper;
+    private DBHelper mDBhelper;
+    private DBOperationCreator dboc;
+    private User user;
     long userId;
     private ActionMode mActionMode;
     public int itemPosition;
@@ -75,11 +79,11 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
     }
     @SuppressLint("NewApi")
     public void initControls() {
-        Intent in = getActivity().getIntent();
-        userId = in.getLongExtra(DBHelper.MAIN_ID, 1);
+        dboc = new DBOperationCreator();
         mDBhelper = new DBHelper(getActivity().getApplicationContext());
+        user = User.getInstance();
         listView = (ListView) getActivity().findViewById(R.id.list);
-        feedItems = new ArrayList<OrderStatusItem>();
+        feedItems = dboc.getItems(user.getuserId(), getActivity().getApplicationContext());
         CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -147,7 +151,8 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity().getApplicationContext(), OrderDetails.class);
-                intent.putExtra(DBHelper.MAIN_ID, userId);
+                int orderID = listAdapter.getOrderId(position);
+                intent.putExtra(DBHelper.KEY_CORDER_ID, orderID);
                 startActivity(intent);
             }
         });
@@ -164,8 +169,6 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
                 .allChildrenArePullable()
                 .listener(this)
                 .setup(mPullToRefreshLayout);
-
-        fillOrderItemList();
 
         // We first check for cached request
         Cache cache = Freeman.getInstance().getRequestQueue().getCache();
@@ -327,29 +330,6 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
         getActivity().getMenuInflater().inflate(R.menu.main_screen, menu);
         return true;
         }
-    public void fillOrderItemList(){
-        Intent in = getActivity().getIntent();
-        long id = in.getLongExtra(DBHelper.MAIN_ID, 1);
-        Cursor c = mDBhelper.getAllOrders();
-        //long s = c.getLong(c.getColumnIndexOrThrow(DBHelper.USER_UNIQUE_ID));
-        //String a = c.getString(c.getColumnIndexOrThrow(DBHelper.SUMM));
-        //Toast.makeText(getActivity().getApplicationContext(), a, Toast.LENGTH_LONG).show();
-            while (c.moveToNext()) {
-                if (c.getLong(c.getColumnIndexOrThrow(DBHelper.USER_UNIQUE_ID)) == id) {
-                    OrderStatusItem si = new OrderStatusItem();
-                    si.setShirtsQ(c.getString(c.getColumnIndexOrThrow(DBHelper.SHIRTS_Q)));
-                    String testShirtsQ = c.getString(c.getColumnIndexOrThrow(DBHelper.SHIRTS_Q));
-                    //Toast.makeText(getActivity().getApplicationContext(), testShirtsQ, Toast.LENGTH_LONG).show();
-                    si.setSumm(c.getString(c.getColumnIndexOrThrow(DBHelper.SUMM)));
-                    si.setStatus(c.getString(c.getColumnIndexOrThrow(DBHelper.STATUS)));
-                    si.setTimeStamp(c.getString(c.getColumnIndexOrThrow(DBHelper.DATE_STAMP)));
-                    si.setId((int) c.getLong(c.getColumnIndex(DBHelper.MAIN_ID)));
-                    feedItems.add(si);
-                    listAdapter.notifyDataSetChanged();
-                }
-            }
-
-}
 
 }
 

@@ -27,6 +27,18 @@ public class Order {
     private String retAp;
     private DBHelper dbHelper;
 
+    public static final int K_PHONE_NUMBER = 104;
+    public static final int K_ACCEPT_ADDRESS_STREET = 108;
+    public static final int K_ACCEPT_ADDRESS_BD = 109;
+    public static final int K_ACCEPT_ADDRESS_AP = 110;
+    public static final int K_RETURN_ADDRESS_STREET = 111;
+    public static final int K_RETURN_ADDRESS_BD = 112;
+    public static final int K_RETURN_ADDRESS_AP = 113;
+    public static final int K_SHIRTS_Q = 114;
+    public static final int K_SUMM = 115;
+    public static final int K_STATUS = 116;
+    public static final int K_DATE_STAMP = 117;
+
     public final String PHONE_NUMBER = "phone_number";
     public final String ACCEPT_ADDRESS_STREET = "acceptStreet";
     public final String ACCEPT_ADDRESS_BD = "acceptBld";
@@ -35,14 +47,17 @@ public class Order {
     public final String RETURN_ADDRESS_BD = "returnBld";
     public final String RETURN_ADDRESS_AP = "returnAp";
 
-    public Order() {
+    public Order(){}
+
+    public Order(long userId, int shirtsq, String summ, String dateStamp, String status,
+                 String phoneNumber, String accStr, String accBd, String accAp, String retStr, String retBd, String retAp) {
     }
 
     public void saveToDB(Context c){
         dbHelper = new DBHelper(c);
         Date date = new Date();
         SimpleDateFormat dt = new SimpleDateFormat("yyyy/MM/dd");
-        dbHelper.createOrder(userId, shirtsq, summ, dt.format(date), "Заказ не создан");
+        dbHelper.writeCurrentOrder(userId, shirtsq, summ, dt.format(date), "Заказ не создан", phoneNumber, accStr, accBd, accAp, retStr, retBd, retAp);
     }
 
     public void initializeCurrentOrder(int id, Context c){
@@ -57,6 +72,11 @@ public class Order {
         this.retAp = orderInfo.get(RETURN_ADDRESS_AP);
     }
 
+    public String getOrderInfo(int key, int orderid, Context c){
+        DBOperationCreator dbc = new DBOperationCreator();
+        String value = dbc.getCurrentOrderInfo(key, orderid, c);
+        return value;
+    }
     public long getUserId() {
         return userId;
     }

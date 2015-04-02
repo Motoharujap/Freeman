@@ -22,6 +22,7 @@ public class OrderDetails extends Activity {
     private TextView accBdTV, accStreetTV, accApTV, retBdTV, retStrTV, retApTV;
     private User user;
     private Order order;
+    private int orderid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,8 @@ public class OrderDetails extends Activity {
         user = User.getInstance();
         order = new Order();
         Intent intent = getIntent();
-        int id = intent.getIntExtra(DBHelper.MAIN_ID, 0);
-        order.initializeCurrentOrder(id, OrderDetails.this);
+        orderid = intent.getIntExtra(DBHelper.KEY_CORDER_ID, 0);
+        order.initializeCurrentOrder(orderid, OrderDetails.this);
         accBdTV = (TextView) findViewById(R.id.accBdStatsD);
         accStreetTV = (TextView) findViewById(R.id.accStrStatsD);
         accApTV = (TextView) findViewById(R.id.accApStatsD);
@@ -60,11 +61,11 @@ public class OrderDetails extends Activity {
         return super.onOptionsItemSelected(item);
     }
     public void fillData(){
-        accStreetTV.setText(order.getAccStr());
-        accBdTV.setText(order.getAccBd());
-        accApTV.setText(order.getAccAp());
-        retBdTV.setText(order.getRetBd());
-        retStrTV.setText(order.getRetStr());
-        retApTV.setText(order.getRetAp());
+        accStreetTV.setText(order.getOrderInfo(Order.K_ACCEPT_ADDRESS_STREET, orderid, OrderDetails.this));
+        accBdTV.setText(order.getOrderInfo(Order.K_ACCEPT_ADDRESS_BD, orderid, OrderDetails.this));
+        accApTV.setText(order.getOrderInfo(Order.K_ACCEPT_ADDRESS_AP, orderid, OrderDetails.this));
+        retBdTV.setText(order.getOrderInfo(Order.K_RETURN_ADDRESS_BD, orderid, OrderDetails.this));
+        retStrTV.setText(order.getOrderInfo(Order.K_RETURN_ADDRESS_STREET, orderid, OrderDetails.this));
+        retApTV.setText(order.getOrderInfo(Order.K_RETURN_ADDRESS_AP, orderid, OrderDetails.this));
     }
 }
