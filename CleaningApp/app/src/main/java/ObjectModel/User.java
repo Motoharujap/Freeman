@@ -63,6 +63,7 @@ public class User {
     public void saveUserToDB(){
         _dbHelper = new DBHelper(_c);
         _userId = _dbHelper.createUser(_email, _password, _phoneNumber, _name, _surname, _lastname, _accStr, _accBd, _accAp, _retStr, _retBd, _retAp);
+        _dbHelper.saveCurrentUserID(_userId);
     }
 
     public void instantiateUser(int userId){
@@ -95,6 +96,7 @@ public class User {
     }
 
     public void setemail(String _email) {
+
         this._email = _email;
         _dbHelper.updateEmail(_userId, _email);
     }
@@ -113,6 +115,7 @@ public class User {
     }
 
     public void setphoneNumber(String _phoneNumber) {
+        _dbHelper = new DBHelper(_c);
         this._phoneNumber = _phoneNumber;
         _dbHelper.updatePhoneNumber(_userId, _phoneNumber);
     }
@@ -149,6 +152,7 @@ public class User {
     }
 
     public void setaccStr(String _accStr) {
+        _dbHelper = new DBHelper(_c);
         this._accStr = _accStr;
         _dbHelper.updateAccStrAddress(_userId, _accStr);
     }
@@ -158,6 +162,7 @@ public class User {
     }
 
     public void setaccBd(String _accBd) {
+        _dbHelper = new DBHelper(_c);
         this._accBd = _accBd;
         _dbHelper.updateAccBdAddress(_userId, _accBd);
     }
@@ -167,6 +172,7 @@ public class User {
     }
 
     public void setaccAp(String _accAp) {
+        _dbHelper = new DBHelper(_c);
         this._accAp = _accAp;
         _dbHelper.updateAccApAddress(_userId, _accAp);
     }
@@ -176,6 +182,7 @@ public class User {
     }
 
     public void setretStr(String _retStr) {
+        _dbHelper = new DBHelper(_c);
         this._retStr = _retStr;
         _dbHelper.updateRetStreetAddress(_userId, _retStr);
     }
@@ -185,6 +192,7 @@ public class User {
     }
 
     public void setretBd(String _retBd) {
+        _dbHelper = new DBHelper(_c);
         this._retBd = _retBd;
         _dbHelper.updateRetBdAddress(_userId, _retBd);
     }
@@ -194,6 +202,7 @@ public class User {
     }
 
     public void setretAp(String _retAp) {
+        _dbHelper = new DBHelper(_c);
         this._retAp = _retAp;
         _dbHelper.updateRetApAddress(_userId, _retAp);
     }

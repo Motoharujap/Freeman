@@ -191,7 +191,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String query = "SELECT " + CURRENT_USER_ID + " FROM " + TABLE_CURRENT_USER;
         Cursor c = db.rawQuery(query, null);
         if (c.moveToFirst()){
-            userID = c.getLong(c.getColumnIndex(MAIN_ID));
+            userID = c.getLong(c.getColumnIndex(CURRENT_USER_ID));
         }
         return userID;
     }
@@ -199,7 +199,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void saveCurrentUserID(long userID){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(MAIN_ID, userID);
+        cv.put(CURRENT_USER_ID, userID);
         db.insert(TABLE_CURRENT_USER, null, cv);
     }
 
@@ -246,9 +246,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getUser(long rowId) throws SQLException {
         SQLiteDatabase db = getWritableDatabase();
-        Cursor mCursor = db.query(true, TABLE_USER, new String[]{MAIN_ID, PHONE_NUMBER, EMAIL, PASSWORD, USER_NAME, USER_SECOND_NAME, USER_SURNAME, ACCEPT_ADDRESS_STREET,
+       /* Cursor mCursor = db.query(true, TABLE_USER, new String[]{MAIN_ID, PHONE_NUMBER, EMAIL, PASSWORD, USER_NAME, USER_SECOND_NAME, USER_SURNAME, ACCEPT_ADDRESS_STREET,
                         ACCEPT_ADDRESS_BD, ACCEPT_ADDRESS_AP, RETURN_ADDRESS_STREET, RETURN_ADDRESS_BD, RETURN_ADDRESS_AP}, MAIN_ID + " = " + rowId,
-                null, null, null, null, null);
+                null, null, null, null, null);*/
+        Cursor mCursor = db.rawQuery("select * from " + TABLE_USER + " where " + MAIN_ID + " = " + rowId, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
         }

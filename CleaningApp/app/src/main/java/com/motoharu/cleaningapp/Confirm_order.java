@@ -52,6 +52,7 @@ public class Confirm_order extends ActionBarActivity implements LoaderManager.Lo
         user = User.getInstance();
         this.getSupportLoaderManager().initLoader(0, null, this);
         Intent intent = getIntent();
+        //TODO get summ info from order, not by intent
         summ = intent.getIntExtra("SUMM", 1);
         _fillData = intent.getBooleanExtra(FILL_DATA, true);
         //widgets
@@ -65,7 +66,7 @@ public class Confirm_order extends ActionBarActivity implements LoaderManager.Lo
 
         //filling widgets with data
         if (_fillData) {
-            fillData(user.getuserId());
+            fillData();
         }
 
         summTotal = (TextView) findViewById(R.id.summTotal);
@@ -92,21 +93,15 @@ public class Confirm_order extends ActionBarActivity implements LoaderManager.Lo
         super.onStop();
     }
 
-    public void fillData(long id)
+    public void fillData()
     {
-        Cursor cursor = null;
-        try {
-            cursor = mDBhelper.getUser(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        phoneTv.setText(cursor.getString(cursor.getColumnIndex(mDBhelper.PHONE_NUMBER)));
-        accBdTv.setText(cursor.getString(cursor.getColumnIndexOrThrow(mDBhelper.ACCEPT_ADDRESS_BD)));
-        accStrTv.setText(cursor.getString(cursor.getColumnIndexOrThrow(mDBhelper.ACCEPT_ADDRESS_STREET)));
-        accApTv.setText(cursor.getString(cursor.getColumnIndexOrThrow(mDBhelper.ACCEPT_ADDRESS_AP)));
-        retBdTv.setText(cursor.getString(cursor.getColumnIndexOrThrow(mDBhelper.RETURN_ADDRESS_BD)));
-        retStrTv.setText(cursor.getString(cursor.getColumnIndexOrThrow(mDBhelper.RETURN_ADDRESS_STREET)));
-        retApTv.setText(cursor.getString(cursor.getColumnIndexOrThrow(mDBhelper.RETURN_ADDRESS_AP)));
+        phoneTv.setText(user.getphoneNumber());
+        accBdTv.setText(user.getaccBd());
+        accStrTv.setText(user.getaccStr());
+        accApTv.setText(user.getaccAp());
+        retBdTv.setText(user.getretBd());
+        retStrTv.setText(user.getretStr());
+        retApTv.setText(user.getretAp());
     }
     @Override
     public void onBackPressed()

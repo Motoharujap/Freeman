@@ -66,6 +66,7 @@ public class DBOperationCreator {
             userInfo.add(c.getString(c.getColumnIndex(DBHelper.USER_SURNAME)));
             userInfo.add(c.getString(c.getColumnIndex(DBHelper.ACCEPT_ADDRESS_STREET)));
             userInfo.add(c.getString(c.getColumnIndex(DBHelper.ACCEPT_ADDRESS_BD)));
+            userInfo.add(c.getString(c.getColumnIndex(DBHelper.ACCEPT_ADDRESS_AP)));
             userInfo.add(c.getString(c.getColumnIndex(DBHelper.RETURN_ADDRESS_STREET)));
             userInfo.add(c.getString(c.getColumnIndex(DBHelper.RETURN_ADDRESS_BD)));
             userInfo.add(c.getString(c.getColumnIndex(DBHelper.RETURN_ADDRESS_AP)));
