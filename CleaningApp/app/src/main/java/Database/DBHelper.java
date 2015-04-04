@@ -127,6 +127,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //current order CRUD
+
+    //TODO use inner join instead of creating same fields
     public void writeCurrentOrder(long userId, int shirtsq, String summ, String dateStamp, String status, String phoneNumber, String accStr, String accBd, String accAp,
                                   String retStr, String retBd, String retAp){
         SQLiteDatabase db = getWritableDatabase();
@@ -169,7 +171,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //Delete order
     public void deleteOrdersById(ArrayList<Integer> idList){
         SQLiteDatabase database = getWritableDatabase();
-        String deleteQuery = "DELETE FROM " + TABLE_CURRENT_ORDER + " WHERE " + KEY_CORDER_ID + " = ? ";
+        String deleteQuery = "DELETE FROM " + TABLE_CURRENT_ORDER + " WHERE " + KEY_CORDER_ID + " = ?";
         for (int i = 0; i < idList.size(); i++){
             database.execSQL(deleteQuery, new Object[]{idList.get(i)});
         }

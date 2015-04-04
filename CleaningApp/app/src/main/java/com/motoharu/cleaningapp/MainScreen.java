@@ -24,7 +24,6 @@ import login_passwords_and_blackjack.SaveSharedPreferences;
 public class MainScreen extends ActionBarActivity {
     ViewPager mViewPager;
     private TabsPagerAdapter tpa;
-    DBHelper mDBhelper;
     private InterfaceDialogCallback _yesCallback, _noCallback;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -34,7 +33,6 @@ public class MainScreen extends ActionBarActivity {
         setContentView(R.layout.activity_main_screen);
         tpa = new TabsPagerAdapter(getSupportFragmentManager());
 
-        mDBhelper = new DBHelper(this);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setOnPageChangeListener(
                 new ViewPager.SimpleOnPageChangeListener(){
@@ -90,7 +88,7 @@ public class MainScreen extends ActionBarActivity {
         };
         Dialogs.makeYesNoDialog(this,
                 getResources().getString(R.string.exit),
-                getResources().getString(R.string.exit),
+                getResources().getString(R.string.exitConfirmation),
                 _yesCallback,
                 _noCallback);
     }

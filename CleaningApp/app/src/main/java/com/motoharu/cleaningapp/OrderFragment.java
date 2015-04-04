@@ -115,9 +115,11 @@ public class OrderFragment extends Fragment {
         int summInt = Integer.parseInt(summ.getText().toString());
         if (test.equals(0)) {
             minus.setEnabled(false);
+            sendOrder.setEnabled(false);
         }
         else {
             minus.setEnabled(true);
+            sendOrder.setEnabled(true);
         }
 
         sendOrder.setOnClickListener(new View.OnClickListener() {
