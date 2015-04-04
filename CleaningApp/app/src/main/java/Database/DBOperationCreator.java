@@ -110,49 +110,5 @@ public class DBOperationCreator {
         return orderStatusItems;
     }
 
-    public String getCurrentOrderInfo(int infoID, int orderid, Context context){
-        DBHelper dbhelper = new DBHelper(context);
-        Cursor cursor = dbhelper.getCurrentOrderInfo(orderid);
-        String result = "";
-        if (cursor.moveToFirst()) {
-            switch (infoID) {
-                case K_PHONE_NUMBER: {
-                    result = cursor.getString(cursor.getColumnIndex(DBHelper.CO_PHONE_NUMBER));
-                }
-                case K_ACCEPT_ADDRESS_STREET: {
-                    result = cursor.getString(cursor.getColumnIndex(DBHelper.CO_ACCEPT_ADDRESS_STREET));
-                }
-                case K_ACCEPT_ADDRESS_BD: {
-                    result = cursor.getString(cursor.getColumnIndex(DBHelper.CO_ACCEPT_ADDRESS_BD));
-                }
-                case K_ACCEPT_ADDRESS_AP:{
-                    result = cursor.getString(cursor.getColumnIndex(DBHelper.CO_ACCEPT_ADDRESS_AP));
-                }
-                case K_RETURN_ADDRESS_STREET:{
-                    result = cursor.getString(cursor.getColumnIndex(DBHelper.CO_RETURN_ADDRESS_STREET));
-                }
-                case K_RETURN_ADDRESS_BD:{
-                    result = cursor.getString(cursor.getColumnIndex(DBHelper.CO_RETURN_ADDRESS_BD));
-                }
-                case K_RETURN_ADDRESS_AP:{
-                    result = cursor.getString(cursor.getColumnIndex(DBHelper.CO_RETURN_ADDRESS_AP));
-                }
-                case K_STATUS:{
-                    result = cursor.getString(cursor.getColumnIndex(DBHelper.STATUS));
-                }
-                case K_SHIRTS_Q:{
-                    result = cursor.getString(cursor.getColumnIndex(DBHelper.SHIRTS_Q));
-                }
-                case K_DATE_STAMP:{
-                    result = cursor.getString(cursor.getColumnIndex(DBHelper.DATE_STAMP));
-                }
-                case K_SUMM:{
-                    result = cursor.getString(cursor.getColumnIndex(DBHelper.SUMM));
-                }
-            }
-        }
-        return result;
-    }
-
 
 }

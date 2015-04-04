@@ -48,6 +48,7 @@ public class MainScreen extends ActionBarActivity {
         mViewPager.setAdapter(tpa);
         final android.app.ActionBar ab = getActionBar();
         ab.setNavigationMode(ab.NAVIGATION_MODE_TABS);
+        ab.setDisplayShowHomeEnabled(true);
         ActionBar.TabListener tl = new ActionBar.TabListener() {
 
             @Override

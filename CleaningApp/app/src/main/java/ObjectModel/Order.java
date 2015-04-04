@@ -84,11 +84,6 @@ public class Order {
         this.retAp = orderInfo.get(RETURN_ADDRESS_AP);
     }
 
-    public String getOrderInfo(int key, int orderid, Context c){
-        DBOperationCreator dbc = new DBOperationCreator();
-        String value = dbc.getCurrentOrderInfo(key, orderid, c);
-        return value;
-    }
     public long getUserId() {
         return userId;
     }
