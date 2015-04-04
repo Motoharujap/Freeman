@@ -39,13 +39,13 @@ public class Order {
     public static final int K_STATUS = 116;
     public static final int K_DATE_STAMP = 117;
 
-    public final String PHONE_NUMBER = "phone_number";
-    public final String ACCEPT_ADDRESS_STREET = "acceptStreet";
-    public final String ACCEPT_ADDRESS_BD = "acceptBld";
-    public final String ACCEPT_ADDRESS_AP = "acceptAp";
-    public final String RETURN_ADDRESS_STREET = "returnStreet";
-    public final String RETURN_ADDRESS_BD = "returnBld";
-    public final String RETURN_ADDRESS_AP = "returnAp";
+    public static final String PHONE_NUMBER = "phone_number";
+    public static final String ACCEPT_ADDRESS_STREET = "acceptStreet";
+    public static final String ACCEPT_ADDRESS_BD = "acceptBld";
+    public static final String ACCEPT_ADDRESS_AP = "acceptAp";
+    public static final String RETURN_ADDRESS_STREET = "returnStreet";
+    public static final String RETURN_ADDRESS_BD = "returnBld";
+    public static final String RETURN_ADDRESS_AP = "returnAp";
 
     public Order(){}
 

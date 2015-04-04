@@ -12,8 +12,10 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import Database.DBHelper;
+import Database.DBOperationCreator;
 import ObjectModel.Order;
 import ObjectModel.User;
 
@@ -61,11 +63,14 @@ public class OrderDetails extends Activity {
         return super.onOptionsItemSelected(item);
     }
     public void fillData(){
-        accStreetTV.setText(order.getOrderInfo(Order.K_ACCEPT_ADDRESS_STREET, orderid, OrderDetails.this));
-        accBdTV.setText(order.getOrderInfo(Order.K_ACCEPT_ADDRESS_BD, orderid, OrderDetails.this));
-        accApTV.setText(order.getOrderInfo(Order.K_ACCEPT_ADDRESS_AP, orderid, OrderDetails.this));
-        retBdTV.setText(order.getOrderInfo(Order.K_RETURN_ADDRESS_BD, orderid, OrderDetails.this));
-        retStrTV.setText(order.getOrderInfo(Order.K_RETURN_ADDRESS_STREET, orderid, OrderDetails.this));
-        retApTV.setText(order.getOrderInfo(Order.K_RETURN_ADDRESS_AP, orderid, OrderDetails.this));
+        //TODO pass context to the DBO constructor instead of passing it to every method
+        DBOperationCreator dbo = new DBOperationCreator();
+        HashMap<String, String> map = dbo.getCurrentOrderInfo(orderid, OrderDetails.this);
+        accStreetTV.setText(map.get(Order.ACCEPT_ADDRESS_STREET));
+        accBdTV.setText(map.get(Order.ACCEPT_ADDRESS_BD));
+        accApTV.setText(map.get(Order.ACCEPT_ADDRESS_AP));
+        retBdTV.setText(map.get(Order.RETURN_ADDRESS_BD));
+        retStrTV.setText(map.get(Order.RETURN_ADDRESS_STREET));
+        retApTV.setText(map.get(Order.RETURN_ADDRESS_AP));
     }
 }
