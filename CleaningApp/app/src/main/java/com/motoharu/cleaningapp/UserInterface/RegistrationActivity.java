@@ -242,7 +242,10 @@ public class RegistrationActivity extends Activity implements LoaderManager.Load
         if (passInp.equals(repPassInp) && !passInp.equals("") && val) {
             user.createUser(emailInp, passInp, phoneInp, nameInp, secnameInp, surnameInp, accStreetInp, accHouseInp,
                     accApInp, retStreetIp, retHouseIp, retApIp, RegistrationActivity.this);
+            //TODO remove shity code
             user.saveUserToDB();
+            user.saveCurrentUserID();
+
             Intent intent = new Intent(RegistrationActivity.this, MainScreen.class);
             startActivity(intent);
             Intent newIntent = new Intent(RegistrationActivity.this, Confirm_order.class);

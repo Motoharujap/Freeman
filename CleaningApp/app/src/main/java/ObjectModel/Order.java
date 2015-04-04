@@ -51,6 +51,18 @@ public class Order {
 
     public Order(long userId, int shirtsq, String summ, String dateStamp, String status,
                  String phoneNumber, String accStr, String accBd, String accAp, String retStr, String retBd, String retAp) {
+        this.userId = userId;
+        this.shirtsq = shirtsq;
+        this.summ = summ;
+        this.dateStamp = dateStamp;
+        this.status = status;
+        this.phoneNumber = phoneNumber;
+        this.accStr = accStr;
+        this.accBd = accBd;
+        this.accAp = accAp;
+        this.retStr = retStr;
+        this.retBd = retBd;
+        this.retAp = retAp;
     }
 
     public void saveToDB(Context c){

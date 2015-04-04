@@ -63,8 +63,13 @@ public class User {
     public void saveUserToDB(){
         _dbHelper = new DBHelper(_c);
         _userId = _dbHelper.createUser(_email, _password, _phoneNumber, _name, _surname, _lastname, _accStr, _accBd, _accAp, _retStr, _retBd, _retAp);
+    }
+
+    public void saveCurrentUserID(){
+        _dbHelper = new DBHelper(_c);
         _dbHelper.saveCurrentUserID(_userId);
     }
+
 
     public void instantiateUser(int userId){
         //acquiring apps context for DBHelper
