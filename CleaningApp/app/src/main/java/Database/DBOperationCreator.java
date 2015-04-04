@@ -98,15 +98,15 @@ public class DBOperationCreator {
         DBHelper mDbhelper = new DBHelper(context);
         Cursor c = mDbhelper.getAllOrders(userId);
         ArrayList<OrderStatusItem> orderStatusItems = new ArrayList<OrderStatusItem>();
-        while (c.moveToNext()) {
-             OrderStatusItem si = new OrderStatusItem();
-             si.setShirtsQ(c.getString(c.getColumnIndexOrThrow(DBHelper.SHIRTS_Q)));
-             si.setSumm(c.getString(c.getColumnIndexOrThrow(DBHelper.SUMM)));
-             si.setStatus(c.getString(c.getColumnIndexOrThrow(DBHelper.STATUS)));
-             si.setTimeStamp(c.getString(c.getColumnIndexOrThrow(DBHelper.DATE_STAMP)));
-             si.setId((int) c.getLong(c.getColumnIndex(DBHelper.KEY_CORDER_ID)));
-             orderStatusItems.add(si);
-        }
+        do {
+            OrderStatusItem si = new OrderStatusItem();
+            si.setShirtsQ(c.getString(c.getColumnIndexOrThrow(DBHelper.SHIRTS_Q)));
+            si.setSumm(c.getString(c.getColumnIndexOrThrow(DBHelper.SUMM)));
+            si.setStatus(c.getString(c.getColumnIndexOrThrow(DBHelper.STATUS)));
+            si.setTimeStamp(c.getString(c.getColumnIndexOrThrow(DBHelper.DATE_STAMP)));
+            si.setId((int) c.getLong(c.getColumnIndex(DBHelper.KEY_CORDER_ID)));
+            orderStatusItems.add(si);
+        } while (c.moveToNext());
         return orderStatusItems;
     }
 
