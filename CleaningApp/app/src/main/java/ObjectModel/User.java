@@ -76,8 +76,8 @@ public class User {
         app = Freeman.getInstance();
         _c = app.getApplicationContext();
 
-        DBOperationCreator dc = new DBOperationCreator();
-        userInfo = dc.getUserInfo(userId, _c);
+        DBOperationCreator dc = new DBOperationCreator(_c);
+        userInfo = dc.getUserInfo(userId);
         _email = userInfo.get(0);
         _password = userInfo.get(1);
         _phoneNumber = userInfo.get(2);

@@ -64,8 +64,8 @@ public class OrderDetails extends Activity {
     }
     public void fillData(){
         //TODO pass context to the DBO constructor instead of passing it to every method
-        DBOperationCreator dbo = new DBOperationCreator();
-        HashMap<String, String> map = dbo.getCurrentOrderInfo(orderid, OrderDetails.this);
+        DBOperationCreator dbo = new DBOperationCreator(OrderDetails.this);
+        HashMap<String, String> map = dbo.getCurrentOrderInfo(orderid);
         accStreetTV.setText(map.get(Order.ACCEPT_ADDRESS_STREET));
         accBdTV.setText(map.get(Order.ACCEPT_ADDRESS_BD));
         accApTV.setText(map.get(Order.ACCEPT_ADDRESS_AP));

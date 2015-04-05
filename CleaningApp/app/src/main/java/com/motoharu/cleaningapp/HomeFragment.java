@@ -79,11 +79,11 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
     }
     @SuppressLint("NewApi")
     public void initControls() {
-        dboc = new DBOperationCreator();
+        dboc = new DBOperationCreator(getActivity().getApplicationContext());
         mDBhelper = new DBHelper(getActivity().getApplicationContext());
         user = User.getInstance();
         listView = (ListView) getActivity().findViewById(R.id.list);
-        feedItems = dboc.getItems(user.getuserId(), getActivity().getApplicationContext());
+        feedItems = dboc.getItems(user.getuserId());
         CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -27,18 +27,6 @@ public class Order {
     private String retAp;
     private DBHelper dbHelper;
 
-    public static final int K_PHONE_NUMBER = 104;
-    public static final int K_ACCEPT_ADDRESS_STREET = 108;
-    public static final int K_ACCEPT_ADDRESS_BD = 109;
-    public static final int K_ACCEPT_ADDRESS_AP = 110;
-    public static final int K_RETURN_ADDRESS_STREET = 111;
-    public static final int K_RETURN_ADDRESS_BD = 112;
-    public static final int K_RETURN_ADDRESS_AP = 113;
-    public static final int K_SHIRTS_Q = 114;
-    public static final int K_SUMM = 115;
-    public static final int K_STATUS = 116;
-    public static final int K_DATE_STAMP = 117;
-
     public static final String PHONE_NUMBER = "phone_number";
     public static final String ACCEPT_ADDRESS_STREET = "acceptStreet";
     public static final String ACCEPT_ADDRESS_BD = "acceptBld";
@@ -73,8 +61,8 @@ public class Order {
     }
 
     public void initializeCurrentOrder(int id, Context c){
-        DBOperationCreator dbc = new DBOperationCreator();
-        HashMap<String, String> orderInfo = dbc.getCurrentOrderInfo(id, c);
+        DBOperationCreator dbc = new DBOperationCreator( c);
+        HashMap<String, String> orderInfo = dbc.getCurrentOrderInfo(id);
         this.phoneNumber = orderInfo.get(PHONE_NUMBER);
         this.accStr = orderInfo.get(ACCEPT_ADDRESS_STREET);
         this.accBd = orderInfo.get(ACCEPT_ADDRESS_BD);

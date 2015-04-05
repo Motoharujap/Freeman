@@ -46,7 +46,12 @@ public class DBOperationCreator {
     public final int K_STATUS = 116;
     public final int K_DATE_STAMP = 117;
 
-    public ArrayList<String> getUserInfo(int userID, Context context){
+    private Context context;
+
+    public DBOperationCreator(Context context){
+        this.context = context;
+    }
+    public ArrayList<String> getUserInfo(int userID){
         ArrayList<String> userInfo = new ArrayList<String>();
         DBHelper mDbhelper = new DBHelper(context);
         Cursor c = null;
@@ -75,7 +80,7 @@ public class DBOperationCreator {
         return userInfo;
     }
 
-    public HashMap<String, String> getCurrentOrderInfo(int id, Context context){
+    public HashMap<String, String> getCurrentOrderInfo(int id){
         HashMap<String, String> map = new HashMap<String, String>();
         DBHelper mDbHelper = new DBHelper(context);
         Cursor c = mDbHelper.getCurrentOrderInfo(id);
@@ -94,7 +99,7 @@ public class DBOperationCreator {
         return map;
     }
 
-    public ArrayList<OrderStatusItem> getItems(long userId, Context context){
+    public ArrayList<OrderStatusItem> getItems(long userId){
         DBHelper mDbhelper = new DBHelper(context);
         Cursor c = mDbhelper.getAllOrders(userId);
         ArrayList<OrderStatusItem> orderStatusItems = new ArrayList<OrderStatusItem>();

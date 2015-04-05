@@ -215,7 +215,6 @@ public class Confirm_order extends ActionBarActivity implements LoaderManager.Lo
     public void writeToOrderTable(){
         Intent intent = getIntent();
         int shirtsQ = intent.getIntExtra("SHIRTSQ", 1);
-        DBHelper dbHelper = new DBHelper(this);
         Date date = new Date();
         SimpleDateFormat dt = new SimpleDateFormat("yyyy/MM/dd");
         _order = new Order(user.getuserId(), shirtsQ, String.valueOf(summ), dt.format(date), "Заказ не обработан", phoneInp, accStrInp, accBdInp, accApInp, retStrInp,
