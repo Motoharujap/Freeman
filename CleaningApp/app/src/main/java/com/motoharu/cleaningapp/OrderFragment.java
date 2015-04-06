@@ -37,14 +37,14 @@ public class OrderFragment extends Fragment {
     //variables
     private InterfaceDialogCallback _yesCallback, _noCallback;
     // TODO: Rename and change types of parameters
-    int empty = 0;
+    private  int empty = 0;
     private String mParam1;
     private String mParam2;
     public static int count = 0;
     public static int statusCount = 0;
     private static int summCount = 0;
-    DBHelper mDBhelper;
-    TextView summ, shirtsQ;
+    private DBHelper mDBhelper;
+    private TextView summ, shirtsQ;
 
     private OnFragmentInteractionListener mListener;
 
@@ -107,19 +107,18 @@ public class OrderFragment extends Fragment {
             }
         });
         Button plus = (Button) view.findViewById(R.id.plusButton);
-        Button sendOrder = (Button) view.findViewById(R.id.sendOrder);
+        final Button sendOrder = (Button) view.findViewById(R.id.sendOrder);
+        summ = (TextView) view.findViewById(R.id.summTV);
+        if (summCount == 0){
+            sendOrder.setEnabled(false);
+        }
         final Button minus = (Button) view.findViewById(R.id.minusButton);
         shirtsQ = (TextView) view.findViewById(R.id.shirtsQ);
-        summ = (TextView) view.findViewById(R.id.summTV);
-        String test = summ.getText().toString();
-        int summInt = Integer.parseInt(summ.getText().toString());
-        if (test.equals(0)) {
+        if (summCount == 0) {
             minus.setEnabled(false);
-            sendOrder.setEnabled(false);
         }
         else {
             minus.setEnabled(true);
-            sendOrder.setEnabled(true);
         }
 
         sendOrder.setOnClickListener(new View.OnClickListener() {
@@ -172,6 +171,7 @@ public class OrderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 minus.setEnabled(true);
+                sendOrder.setEnabled(true);
                 count++;
                 summCount = summCount + 500;
                 shirtsQ.setText(String.valueOf(count));
@@ -187,8 +187,10 @@ public class OrderFragment extends Fragment {
                          shirtsQ.setText(String.valueOf(count));
                          summ.setText(summCount + "руб.");
                      }
-                     else
+                     else {
                          minus.setEnabled(false);
+                         sendOrder.setEnabled(false);
+                     }
                 }
         });
 
